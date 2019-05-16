@@ -1,16 +1,10 @@
 require "./bin/game.rb"
-
+require "rspec"
 describe Game do
 	let(:game) { Game.new } 
-	# let(:game) { double("game") }
-	# let(:player1) { Player.new }
-	# let(:player2) { Player.new }	
-
-		
 
 	describe "#initialize" do
 		it "should create Player One" do
-			# allow(game).to receive(:player1)
 			expect(game.player1).to be_truthy
 		end
 
@@ -42,14 +36,14 @@ describe Game do
 
 	describe "#make_move" do
 		context "when choosing an available column" do
-			xit "should allow player to drop piece" do
+			it "should allow player to drop piece" do
 				col = 3
 				expect(game.make_move).to be_truthy
 			end
 		end
 
 		context "when choosing a filled column" do
-			xit "should not allow player to drop piece" do
+			it "should not allow player to drop piece" do
 				col = 2
 				board = game.board
 				(0..5).each { |row| board.grid[row][col] = "x" }

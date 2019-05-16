@@ -1,6 +1,6 @@
 require_relative "board"
 require_relative "player"
-require_relative "cell"
+
 
 class Game
 	attr_reader :player1, :player2, :board, :current_player, :location
@@ -24,6 +24,7 @@ class Game
 				full and neither player has achieved four in a row, the game is a draw.
 				
 				Enjoy!
+				
 			HEREDOC
 	end
 
@@ -31,12 +32,12 @@ class Game
 		@current_player = ((@current_player == @player1) ? @player2 : @player1 )
 	end
 
-	def make_move
+	def make_move	
 		puts "#{current_player.name}, please select a column:"
 		@location = board.drop_piece(gets.chomp.to_i, current_player.piece)
 	end
 
-	def take_turn
+	def play
 		while true
 			board.show
 			while true do break if make_move end
@@ -57,5 +58,7 @@ class Game
 	end
 end
 
-game = Game.new
-game.take_turn
+if __FILE__ == $0
+	game = Game.new
+	game.play
+end

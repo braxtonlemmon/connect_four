@@ -16,8 +16,6 @@ class Board
 	end
 
 	def drop_piece(column, piece)
-		# row = find_empty_spot(column)
-		# row ? (@grid[row][column] = piece) : false
 		if row = find_empty_spot(column)
 			@grid[row][column] = piece
 			return [row, column]
@@ -75,9 +73,8 @@ class Board
 		false
 	end
 
-	# The row and column in #match?(row,column) refer to the coordinates 
-	# of the most recently dropped piece
 	def match?(location)
+		# location in #match?(location) refers to the coordinates of the last dropped piece
 		return true if column_win?(location[1]) || row_win?(location[0]) || diagonal_win?(0) || diagonal_win?(1)
 		false
 	end

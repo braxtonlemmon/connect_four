@@ -1,4 +1,5 @@
 require "./bin/board.rb"
+require "rspec"
 
 describe Board do
 	let(:board) { Board.new }
@@ -6,14 +7,6 @@ describe Board do
 	describe "#initialize" do
 		it "contains an empty 6x7 grid" do
 			expect(board.grid).to eq(Array.new(6) { Array.new(7) { " " } })
-		end
-	end
-
-	describe "#show" do
-		it "prints grid to screen" do
-			rows = board.grid
-			printed_grid = rows.each { |row| p row }
-			expect(board.show).to eq(printed_grid)
 		end
 	end
 
