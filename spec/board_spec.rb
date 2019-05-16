@@ -18,17 +18,24 @@ describe Board do
 	end
 
 	describe "#drop_piece" do
+		let(:piece) { "x" }
+		it "drops the current player's piece" do
+			col = 4
+			board.drop_piece(col, piece)
+			expect(board.grid[5][col]).to eq(piece)
+		end
+
 		context "when column is not full" do	
 			it "changes value in grid array" do
 				col = 4
-				board.drop_piece(col)
+				board.drop_piece(col, piece)
 				expect(board.grid[5][col]).not_to eq(" ")
 			end
 
 			it "adds piece to lowest empty spot in column" do
 				col = 1
 				5.downto(3) { |row| board.grid[row][col] = "x" }	
-				board.drop_piece(col)
+				board.drop_piece(col, piece)
 				expect(board.grid[2][col]).to eq("x")
 			end 
 		end
@@ -37,7 +44,7 @@ describe Board do
 			it "returns false" do
 				col = 4
 				(0..5).each { |row| board.grid[row][col] = "x" }
-				expect(board.drop_piece(col)).to eq(false)
+				expect(board.drop_piece(col, piece)).to eq(false)
 			end
 		end
 	end
@@ -92,6 +99,7 @@ describe Board do
 	end
 
 	describe "#column_win?" do
+		let(:piece) { "x" }
 		context "when column is empty" do
 			it "returns false" do
 				col = 3
@@ -102,7 +110,7 @@ describe Board do
 		context "when column has three pieces" do
 			it "returns false" do
 				col = 3
-				3.times { board.drop_piece(col) }
+				3.times { board.drop_piece(col, piece) }
 				expect(board.column_win?(col)).to eq(false)
 			end
 		end
@@ -257,6 +265,25 @@ describe Board do
 						expect(board.diagonal_win?(1)).to eq(true)
 					end
 				end
+			end
+		end
+	end
+
+	describe "#full?" do
+		context "when board is not full" do
+			it "returns false" do
+				expect(board.full?).to eq(false)
+			end
+		end
+
+		context "when board is full" do
+			it "returns true" do
+				6.times do |row|
+					7.times do |column|
+						board.grid[row][column] = "x"
+					end
+				end
+				expect(board.full?).to eq(true)
 			end
 		end
 	end
