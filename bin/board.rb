@@ -63,6 +63,10 @@ class Board
 		false
 	end
 
-	#when checking for a win, only check the current column/row of dropped piece for efficiency
+	# The row and column in #match?(row,column) refer to the coordinates of the most recently dropped piece
+	def match?(row, column)
+		return true if column_win?(column) || row_win?(row) || diagonal_win?(0) || diagonal_win?(1)
+		false
+	end
 
 end
